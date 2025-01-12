@@ -69,3 +69,6 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.table {
+  box-shadow: 10px 10px 80px rgba(2, 204, 255, 0.7);
+}

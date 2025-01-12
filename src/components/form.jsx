@@ -52,8 +52,8 @@ const Form = ({fetchUsers,formType="create",updateState, setUpdateState, userInf
                 value={user.age>0?user.age:''}
                 onChange={handleChange}
                 name='age'
-                className='bg-white h-10 pl-2 text-gray-950 border border-gray-300' />
-        <input type="submit" value={formType} className="bg-white h-10 rounded-md text-gray-950 mx-2 px-2"/>
+                className='bg-white h-10 pl-2 text-gray-950 border border-gray-300 ' />
+        <input type="submit" value={formType} className="bg-white h-10 rounded-md text-gray-950 mx-2 px-2  hover:scale-110 transition ease-out duration-75"/>
         {/* <button className="bg-white text-gray-950 mx-2 px-2 h-10">create</button> */}
     </form>
   )

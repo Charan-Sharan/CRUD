@@ -21,6 +21,8 @@ const App = () => {
   }
   return (
       <>
+            <h1 className='font-bold tracking-widest '>CRUD APP</h1>
+            <p className='mb-8 text-md'>An application to demonstrate CRUD operations</p>
             <Form fetchUsers={fetchUsers}/>
             {updateState?<Form fetchUsers={fetchUsers} setUpdateState={setUpdateState}  formType='update' userInfo={user}/>:<></>}
             <Table data={users} fetchUsers={fetchUsers} setUpdateState={setUpdateState} updateState={updateState} setUser={setUser}/>
