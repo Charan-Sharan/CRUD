@@ -1,27 +1,26 @@
-name: build
+  name: build
 
-on: 
-  workflow_call:
+  on: 
+    workflow_call:
+      secrets:
+        DOCKER_TOKEN:
+          required: true
+    workflow_dispatch:
 
-jobs: 
-    main:
-        runs-on: ubuntu-22.04
-        steps:
-            - name: checkout repo
-              uses: actions/checkout@v4
+  jobs: 
+      main:
+          runs-on: ubuntu-22.04
+          steps:
+              - name: checkout repo
+                uses: actions/checkout@v4
 
-            - name: build docker image
-              run: | 
-                docker build -t charan1924/crud-app:latest .
+              - name: build docker image
+                run: | 
+                  docker build -t charan1924/crud-app:latest .
 
-            - name: push image to docker hub
-              run: |
-                  docker login -u charan1924 -p ${{ secrets.DOCKER_TOKEN }}
-                  docker push charan1924/crud-app:latest 
-
-
-
-
-
-
-            
+              - name: push image to docker hub
+                env:
+                  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+                run: |
+                    echo "$DOCKER_TOKEN" | docker login -u charan1924 --password-stdin
+                    docker push charan1924/crud-app:latest 

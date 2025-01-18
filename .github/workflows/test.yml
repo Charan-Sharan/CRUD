@@ -22,4 +22,5 @@ jobs:
                 echo "All tests passed"
     build:
         needs: run-tests
-        uses: .github/workflows/build-and-publish.yml
+        uses: ./.github/workflows/build-and-publish.yml
+        secrets: inherit
