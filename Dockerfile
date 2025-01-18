@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM python:3.11-alpine
+FROM --platform=$BUILDPLATFORM python:3.11-alpine
 
 WORKDIR /usr/src/app
 

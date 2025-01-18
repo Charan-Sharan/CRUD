@@ -1,26 +1,30 @@
-  name: build
+name: build
 
-  on: 
-    workflow_call:
-      secrets:
-        DOCKER_TOKEN:
-          required: true
-    workflow_dispatch:
+on: 
+  workflow_call:
+    secrets:
+      DOCKER_TOKEN:
+        required: true
+  workflow_dispatch:
 
-  jobs: 
-      main:
-          runs-on: ubuntu-22.04
-          steps:
-              - name: checkout repo
-                uses: actions/checkout@v4
+env:
+  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
 
-              - name: build docker image
-                run: | 
-                  docker build -t charan1924/crud-app:latest .
+jobs: 
+    main:
+        runs-on: ubuntu-22.04-arm
+        steps:
+            - name: checkout repo
+              uses: actions/checkout@v4
 
-              - name: push image to docker hub
-                env:
-                  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-                run: |
-                    echo "$DOCKER_TOKEN" | docker login -u charan1924 --password-stdin
-                    docker push charan1924/crud-app:latest 
+            - name: build docker image
+              run: | 
+                echo "$DOCKER_TOKEN" | docker login -u charan1924 --password-stdin
+                # docker buildx create --use --name multiarch-builder
+                # docker buildx build --platform linux/arm64 -t charan1924/crud-app:arm-latest --load .
+                docker build -t charan1924/crud-app-arm:${{ github.sha }} .
+
+            - name: push image to docker hub
+              run: |
+                  # echo "$DOCKER_TOKEN" | docker login -u charan1924 --password-stdin
+                  docker push charan1924/crud-app-arm:${{ github.sha }}
