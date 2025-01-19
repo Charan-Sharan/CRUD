@@ -37,12 +37,16 @@ jobs:
             uses: actions/checkout@v4
             with: 
               repository: 'Charan-Sharan/gitops'
+              path: ./gitops
+
           - name: update tag
             run : | 
-              sed 's/image:*/image: crud-app-arm:${{ github.sha }}/g' -i deployment.yml
+              sed 's/image:*/image: crud-app-arm:${{ github.sha }}/g' -i gitops/deployment.yml
+
           - name: push changes
             env: 
               GH_TOKEN: ${{ secrets.GITOPS_TOKEN }}
+            working-directory: ./gitops
             run: |
               git config --global user.email  "charansharan2004+github@gmail.com"
               git config --global user.name "charansharan"
