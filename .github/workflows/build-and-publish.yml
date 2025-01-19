@@ -39,7 +39,7 @@ jobs:
               repository: 'Charan-Sharan/gitops'
               path: ./gitops
               ref: main
-              token: ${{ secrets.GITOPS_TOKEN }}
+              token: ${{ secrets.GITOPS }}
 
           - name: update tag
             run : | 
@@ -47,7 +47,7 @@ jobs:
 
           - name: push changes
             env: 
-              GH_TOKEN: ${{ secrets.GITOPS_TOKEN }}
+              GH_TOKEN: ${{ secrets.GITOPS }}
             working-directory: ./gitops
             run: |
               git config --global user.email  "charansharan2004+github@gmail.com"
