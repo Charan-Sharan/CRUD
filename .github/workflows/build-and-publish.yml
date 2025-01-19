@@ -38,6 +38,8 @@ jobs:
             with: 
               repository: 'Charan-Sharan/gitops'
               path: ./gitops
+              ref: main
+              token: ${{ secrets.GITOPS_TOKEN }}
 
           - name: update tag
             run : | 
