@@ -43,7 +43,7 @@ jobs:
 
           - name: update tag
             run : | 
-              sed 's/image:.*/image: crud-app-arm:${{ github.sha }}/g' -i gitops/deployment.yml
+              sed 's/image:.*/image: charan1924\/crud-app-arm:${{ github.sha }}/g' -i gitops/deployment.yml
 
           - name: push changes
             env: 
