@@ -28,3 +28,24 @@ jobs:
               run: |
                   # echo "$DOCKER_TOKEN" | docker login -u charan1924 --password-stdin
                   docker push charan1924/crud-app-arm:${{ github.sha }}
+
+    update-manifest:
+        needs: main
+        runs-on: ubuntu-22.04
+        steps:
+          - name: checkout manifest repo
+            uses: actions/checkout@v4
+            with: 
+              repository: 'Charan-Sharan/gitops'
+          - name: update tag
+            run : | 
+              sed 's/image:*/image: crud-app-arm:${{ github.sha }}/g' -i deployment.yml
+          - name: push changes
+            env: 
+              GH_TOKEN: ${{ secrets.GITOPS_TOKEN }}
+            run: |
+              git config --global user.email  "charansharan2004+github@gmail.com"
+              git config --global user.name "charansharan"
+              git add .
+              git commit -m "Update deployment manifest crud-app-arm:${{ github.sha }}"
+              git push https://x-access-token:${GH_TOKEN}@github.com/Charan-Sharan/gitops.git 
